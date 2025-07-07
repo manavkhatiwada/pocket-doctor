@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification Failed | MyPocketDoctor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #fafcff;
+    }
+    
+    .error-container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+    }
+    
+    .error-header {
+      padding: 0.8rem 1.5rem;
+      margin: -2rem -2rem 2rem -2rem;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: linear-gradient(to right, #e74c3c, #c0392b);
+      color: white;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    
+    .error-header .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    
+    .error-header .info h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.2px;
+    }
+    
+    .error-header .info p {
+      margin: 0;
+      font-size: 0.75rem;
+      opacity: 0.9;
+    }
+    
+    .error-message {
+      text-align: center;
+      margin: 1rem 0 2rem;
+    }
+    
+    .error-icon {
+      font-size: 3.5rem;
+      color: #e74c3c;
+      margin-bottom: 1rem;
+    }
+    
+    .error-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    
+    .error-subtitle {
+      font-size: 1rem;
+      color: #666;
+      max-width: 80%;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    
+    .error-details {
+      background: rgba(231, 76, 60, 0.05);
+      border-left: 3px solid #e74c3c;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0.5rem;
+      color: #666;
+    }
+    
+    .solution-tip {
+      background: rgba(52, 152, 219, 0.1);
+      border-left: 3px solid #3498db;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0.5rem;
+      line-height: 1.5;
+    }
+    
+    .solution-tip h3 {
+      margin-top: 0;
+      font-size: 1rem;
+      color: #333;
+    }
+    
+    .solution-tip ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.5rem;
+    }
+    
+    .solution-tip li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+    
+    .btn {
+      display: block;
+      padding: 0.8rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background-color: #2e86c1;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2874a6;
+    }
+    
+    .btn-secondary {
+      background-color: #f1f5f9;
+      color: #333;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #e9eef5;
+    }
+  </style>
+</head>
+<body>
+  <!-- Include common navbar -->
+  {% include 'navbar.html' %}
+
+  <main class="container">
+    <div class="error-container">
+      <div class="error-header">
+        <div class="icon">❌</div>
+        <div class="info">
+          <h2>Verification Failed</h2>
+          <p>We encountered an issue with your appointment verification</p>
+        </div>
+      </div>
+      
+      <div class="error-message">
+        <div class="error-icon">⚠️</div>
+        <div class="error-title">Verification Error</div>
+        <div class="error-subtitle">
+          We were unable to verify your appointment due to an issue with the verification link.
+        </div>
+      </div>
+      
+      <div class="error-details">
+        {{ error }}
+      </div>
+      
+      <div class="solution-tip">
+        <h3>What you can do:</h3>
+        <ul>
+          <li>Make sure you're using the most recent verification link from your email</li>
+          <li>Check if the verification link has expired (valid for 1 hour after booking)</li>
+          <li>Try booking a new appointment if this issue persists</li>
+          <li>Contact our support team for assistance</li>
+        </ul>
+      </div>
+      
+      <div class="action-buttons">
+        <a href="{{ url_for('appointment') }}" class="btn btn-primary">Book New Appointment</a>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary">Return to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>🩺 MyPocketDoctor</h3>
+        <p>Your AI healthcare companion, providing reliable answers and connecting you with healthcare professionals.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li>AI Health Chat</li>
+            <li>Doctor Appointments</li>
+            <li>Health Tracking</li>
+            <li>Medical Records</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li>About Us</li>
+            <li>Careers</li>
+            <li>Blog</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li>Terms of Service</li>
+            <li>Privacy Policy</li>
+            <li>Cookie Policy</li>
+            <li>Medical Disclaimer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 MyPocketDoctor. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html> 

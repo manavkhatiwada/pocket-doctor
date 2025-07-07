@@ -1,0 +1,189 @@
+/* Common Header Styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  /* position: sticky; */
+  top: 0;
+  /* z-index: 100; */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.my {
+  color: #333;
+}
+
+.pocket {
+  color: #0099e5;
+  font-weight: 700;
+}
+
+.doctor {
+  color: #666;
+  font-weight: 700;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #0099e5;
+}
+
+nav a.active {
+  color: #0099e5;
+  font-weight: 600;
+}
+
+.signup-btn {
+  background-color: #0099e5;
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+.signup-btn:hover {
+  background-color: #0080c9;
+}
+
+.logout-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Add CSS for admin button */
+.admin-btn {
+  background-color: #e74c3c;
+  color: white !important;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.admin-btn:hover {
+  background-color: #c0392b;
+  text-decoration: none;
+}
+
+/* Common Footer Styles */
+footer {
+  background: #f8f9fa;
+  padding: 60px 50px 20px;
+  margin-top: 40px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  flex: 0 0 300px;
+  margin-bottom: 30px;
+}
+
+.footer-logo h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 50px;
+}
+
+.footer-section h4 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section li {
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  color: #888;
+  font-size: 14px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  header {
+    padding: 15px 20px;
+    flex-wrap: wrap;
+  }
+  
+  nav {
+    margin-top: 15px;
+    width: 100%;
+    justify-content: space-between;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 5px;
+  }
+  
+  nav a {
+    margin: 0 10px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: 30px;
+  }
+} 

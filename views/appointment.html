@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Appointment | MyPocketDoctor</title>
+  <link rel="stylesheet" href="/css/style_appoinment.css">
+</head>
+<body>
+    <header>
+        <div class="logo">🩺 <span>My</span><strong>Pocket</strong>Doctor</div>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/chat">Chat</a>
+          <a href="#">Appointment</a>
+          <a href="/about">About</a>
+          <a href="/login" class="login-btn">Login</a>
+          <a href="/signup" class="signup-btn">Sign Up</a>
+        </nav>
+      </header>
+
+  <main class="appointment-container">
+    <form class="appointment-form" action="/appointment" method="POST">
+      <h2>Book an Appointment</h2>
+
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="department">Choose Department:</label>
+      <select id="department" name="department" required>
+        <option value="">Select...</option>
+        <option value="General">General</option>
+        <option value="Cardiology">Cardiology</option>
+        <option value="Dermatology">Dermatology</option>
+        <option value="Neurology">Neurology</option>
+      </select>
+
+      <label for="doctor">Choose Doctor:</label>
+      <select id="doctor" name="doctor" required>
+        <option value="">Select...</option>
+        <option value="Dr. Shrestha">Dr. Shrestha</option>
+        <option value="Dr. Yadav">Dr. Yadav</option>
+        <option value="Dr. Singh">Dr. Singh</option>
+      </select>
+
+      <label for="problem">Describe Your Problem:</label>
+      <textarea id="problem" name="problem" rows="4" required></textarea>
+
+      <label for="date">Select Date:</label>
+      <input type="date" id="date" name="date" required>
+
+      <label for="time">Select Time:</label>
+      <input type="time" id="time" name="time" required>
+
+      <button type="submit">Book Now</button>
+    </form>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div>
+        <h3>🩺 MyPocketDoctor</h3>
+        <p>Your AI healthcare companion, providing reliable answers and connecting you with healthcare professionals.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li>AI Health Chat</li>
+          <li>Doctor Appointments</li>
+          <li>Health Tracking</li>
+          <li>Medical Records</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li>About Us</li>
+          <li>Careers</li>
+          <li>Blog</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li>Terms of Service</li>
+          <li>Privacy Policy</li>
+          <li>Cookie Policy</li>
+          <li>Medical Disclaimer</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 MyPocketDoctor. All rights reserved.
+    </div>
+  </footer>
+</html> 

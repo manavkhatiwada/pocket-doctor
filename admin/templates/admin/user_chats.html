@@ -1,0 +1,103 @@
+{% extends "admin/base.html" %}
+
+{% block title %}User Chat History{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">User Chat History</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="{{ url_for('admin.index') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('admin.users') }}">Users</a></li>
+        <li class="breadcrumb-item active">Chat History</li>
+    </ol>
+    
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-comments me-1"></i>
+                Chat History for {{ email }}
+            </div>
+            <div>
+                <a href="{{ url_for('admin.user_appointments', email=email) }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-calendar-check"></i> View Appointments
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if user_info %}
+            <div class="user-info mb-4">
+                <h5>User Information</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Name:</strong> {{ user_info.name }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Email:</strong> {{ email }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Phone:</strong> {{ user_info.phone }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="chat-history mt-4">
+                <h5>Chat Messages</h5>
+                
+                {% if chat_history %}
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="chatHistoryTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>User Message</th>
+                                <th>Bot Response</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for chat in chat_history %}
+                            <tr>
+                                <td>{{ chat.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>
+                                    <div class="user-message bg-light p-2 rounded">
+                                        {{ chat.user_message }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="bot-response p-2 rounded" style="background-color: #e3f2fd;">
+                                        {{ chat.bot_response | nl2br | safe }}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    This user has no chat history.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Initialize DataTable for chat history
+    window.addEventListener('DOMContentLoaded', event => {
+        const datatablesSimple = document.getElementById('chatHistoryTable');
+        if (datatablesSimple) {
+            new simpleDatatables.DataTable(datatablesSimple, {
+                perPage: 10,
+                perPageSelect: [5, 10, 15, 20, 25, 50],
+                columns: [
+                    { select: 0, sort: 'desc' }
+                ]
+            });
+        }
+    });
+</script>
+{% endblock %} 

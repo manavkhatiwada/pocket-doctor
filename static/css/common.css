@@ -1,0 +1,58 @@
+/* Common styles shared across pages */
+
+body, html, * {
+    cursor: default !important;
+}
+
+/* Main Navigation Bar */
+.main-navbar {
+    position: fixed !important;
+    top: 0;
+    width: 100%;
+    z-index: 1050 !important; /* Increased z-index to ensure it's on top */
+    background-color: #ffffff; /* Ensure it has a background */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: add a subtle shadow */
+    height: 60px; /* Define a fixed height for the navbar */
+}
+
+main {
+    margin-top: 60px; /* Adjust based on navbar height */
+}
+
+/* Flash messages */
+.flash-messages {
+  width: 80%;
+  max-width: 800px;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.alert {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+.info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+} 

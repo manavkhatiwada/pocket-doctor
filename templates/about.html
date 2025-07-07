@@ -1,0 +1,347 @@
+{% extends "navbar.html" %}
+
+{% block head %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - MyPocketDoctor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about-section.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/preloader.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Preloader -->
+<div id="preloader" class="preloader-container">
+    <div class="spinner"></div>
+</div>
+
+<!-- Sidebar Navigation -->
+<!-- Removed sidebar navigation to ensure consistent navigation with other pages -->
+
+        <!-- Introduction Section -->
+        <section id="intro-section" class="about-section-content">
+            <div class="about-card">
+                <div class="intro-header text-center mb-5">
+                    <img src="{{ url_for('static', filename='images/mypocketdoctor-logo.png') }}" alt="Pocket Doctor Logo" class="project-logo mb-4">
+                    <h2 class="display-4 mb-3">Pocket Doctor</h2>
+                    <p class="lead text-primary mb-4">Your Personal Health Assistant</p>
+                    <div class="project-links">
+                        <a href="#" class="btn btn-outline-primary btn-lg me-3">
+                            <i class="fab fa-github"></i> View on GitHub
+                        </a>
+                        <a href="#" class="btn btn-primary btn-lg">
+                            <i class="fas fa-play-circle"></i> Watch Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row align-items-center mb-5">
+                    <div class="col-md-7">
+                        <h3 class="highlight-text">Our Mission</h3>
+                        <p class="lead">Revolutionizing healthcare accessibility through AI-powered conversations and seamless doctor connections.</p>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>Instant health guidance</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>Smart appointment booking</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>Trusted medical information</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="intro-image-container">
+                            <img src="{{ url_for('static', filename='images/hero-illustration.svg') }}" alt="Healthcare Illustration" class="img-fluid rounded-circle shadow-lg">
+                        </div>
+                    </div>
+  </div>
+
+                <div class="sdg-goal p-4 bg-gradient rounded-lg">
+                    <div class="row align-items-center">
+                        <div class="col-md-3 text-center">
+                            <img src="{{ url_for('static', filename='images/sdg3.svg') }}" alt="SDG 3 Icon" class="sdg-icon mb-2 pulse-animation">
+                            <h5 class="h6">UN SDG Goal 3</h5>
+                        </div>
+                        <div class="col-md-9">
+                            <h4 class="text-gradient">Good Health and Well-being</h4>
+                            <p class="mb-0">Supporting the UN's goal of ensuring healthy lives and promoting well-being for all by making trusted health guidance and medical appointments accessible to everyone, especially in underserved communities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Design Section -->
+        <section id="design-section" class="about-section-content">
+            <div class="about-card">
+                <h4>Challenges Addressed</h4>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="challenge-card">
+                            <i class="fas fa-hospital-user text-primary"></i>
+                            <h5>Healthcare Access</h5>
+                            <p>Inaccessible healthcare advice and guidance</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="challenge-card">
+                            <i class="fas fa-exclamation-triangle text-warning"></i>
+                            <h5>Misinformation</h5>
+                            <p>Unreliable health information online</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="challenge-card">
+                            <i class="fas fa-calendar-times text-danger"></i>
+                            <h5>Booking Systems</h5>
+                            <p>Complex appointment scheduling processes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Solution & Use Case</h4>
+                <div class="solution-card mb-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>AI-Powered Platform</h5>
+                            <p>Smart chatbot with integrated appointment booking system</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Student Use Case</h5>
+                            <p>Quick health advice and seamless clinic visit booking</p>
+                        </div>
+                    </div>
+      </div>
+
+                <h4>Tools & Technologies</h4>
+                <div class="tech-stack mb-4">
+                    <div class="row g-3">
+                        <div class="col-6 col-md-3">
+                            <div class="tech-card">
+                                <h6>Planning</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fab fa-figma"></i> Figma</li>
+                                    <li><i class="fas fa-project-diagram"></i> Miro</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="tech-card">
+                                <h6>Frontend</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fab fa-html5"></i> HTML/CSS</li>
+                                    <li><i class="fab fa-js"></i> JavaScript</li>
+                                    <li><i class="fab fa-bootstrap"></i> Bootstrap</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="tech-card">
+                                <h6>Backend</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fab fa-python"></i> Python</li>
+                                    <li><i class="fas fa-server"></i> Flask</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="tech-card">
+                                <h6>Tools</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-code"></i> VS Code</li>
+                                    <li><i class="fab fa-github"></i> GitHub</li>
+                                </ul>
+                            </div>
+                        </div>
+      </div>
+    </div>
+
+                <h4>Prototype</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="prototype-image">
+                            <img src="{{ url_for('static', filename='images/ChatGPT Image Jun 10, 2025, 09_30_12 AM.png') }}" alt="System Architecture" class="img-fluid rounded">
+                            <p class="text-center mt-2">System Architecture</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="prototype-image">
+                            <img src="{{ url_for('static', filename='images/Screenshot 2025-06-10 093056.png') }}" alt="UI Design" class="img-fluid rounded">
+                            <p class="text-center mt-2">Interface Design</p>
+                        </div>
+                    </div>
+          </div>
+        </div>
+        </section>
+        
+        <!-- Pledge Section -->
+        <section id="pledge-section" class="about-section-content">
+            <div class="about-card">
+                <h4>Market Impact</h4>
+                <div class="impact-card">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="impact-item">
+                                <i class="fas fa-chart-line text-success"></i>
+                                <h5>Growing Digital Health Market</h5>
+                                <p>Entering the expanding telemedicine and digital health sector with an integrated solution.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="impact-item">
+                                <i class="fas fa-star text-warning"></i>
+                                <h5>Competitive Edge</h5>
+                                <p>Superior to basic symptom checkers by combining smart chat and appointment booking.</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="impact-item">
+                                <i class="fas fa-users text-primary"></i>
+                                <p>Ideal for students, remote users, and anyone needing quick healthcare guidance and appointments.</p>
+                            </div>
+                        </div>
+                    </div>
+          </div>
+        </div>
+        </section>
+        
+        <!-- Final Product Section -->
+        <section id="product-section" class="about-section-content">
+            <div class="about-card">
+                <h4>Development Process</h4>
+                <div class="timeline mb-4">
+                    <div class="timeline-item">
+                        <h5>Planning & Design</h5>
+                        <p>Brainstorming and prototyping with Figma</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5>Frontend Development</h5>
+                        <p>HTML/CSS/Bootstrap implementation</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5>Backend Integration</h5>
+                        <p>Flask backend development</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h5>Testing & Deployment</h5>
+                        <p>Local testing and GitHub collaboration</p>
+                    </div>
+                </div>
+
+                <h4>Final Product Screenshots</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="screenshot-card">
+                            <img src="{{ url_for('static', filename='images/Chatflow.png') }}" alt="Chatbot Interface" class="img-fluid rounded">
+                            <p class="text-center mt-2">Chatbot Interface</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="screenshot-card">
+                            <img src="{{ url_for('static', filename='images/booking.png') }}" alt="Appointment System" class="img-fluid rounded">
+                            <p class="text-center mt-2">Appointment System</p>
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team-section" class="about-section-content">
+            <div class="about-card">
+                <div class="team-header text-center mb-5">
+                    <h2 class="display-5">Meet Our Team</h2>
+                    <p class="lead text-muted">The innovative minds behind Pocket Doctor</p>
+        </div>
+        
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="team-card">
+                            <div class="team-card-inner">
+                                <div class="team-photo-wrapper">
+                                    <img src="{{ url_for('static', filename='images/1743662269350.jpeg') }}" alt="Anush Ojha" class="team-photo">
+                                    <div class="team-social">
+                                        <a href="#" class="social-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+          </div>
+                                <h4>Anush Ojha</h4>
+                                <p class="role">Backend Authentication & Vector DB</p>
+                                <p class="contribution">Database Architecture, Authentication System, Vector Database Integration & About Us Section</p>
+                                <p class="student-id">ID: 210222</p>
+        </div>
+      </div>
+    </div>
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="team-card">
+                            <div class="team-card-inner">
+                                <div class="team-photo-wrapper">
+                                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-14 at 16.09.53_d4bd1e3b.jpg') }}" alt="Manav Khatiwada" class="team-photo">
+                                    <div class="team-social">
+                                        <a href="#" class="social-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <h4>Manav Khatiwada</h4>
+                                <p class="role">Chatbot & Appointment System</p>
+                                <p class="contribution">AI Chatbot Integration & Appointment System Development</p>
+                                <p class="student-id">ID: 210223</p>
+    </div>
+        </div>
+      </div>
+      
+                    <div class="col-md-6 col-lg-3">
+                        <div class="team-card">
+                            <div class="team-card-inner">
+                                <div class="team-photo-wrapper">
+                                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-14 at 23.02.18_d46dae4a.jpg') }}" alt="Shubham Yadav" class="team-photo">
+                                    <div class="team-social">
+                                        <a href="#" class="social-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <h4>Shubham Yadav</h4>
+                                <p class="role">Frontend Development</p>
+                                <p class="contribution">UI Implementation, User Experience, Frontend Architecture</p>
+                                <p class="student-id">ID: 210224</p>
+                            </div>
+                        </div>
+        </div>
+        
+                    <div class="col-md-6 col-lg-3">
+                        <div class="team-card">
+                            <div class="team-card-inner">
+                                <div class="team-photo-wrapper">
+                                    <img src="{{ url_for('static', filename='images/WhatsApp Image 2025-05-14 at 17.55.06_b637ce68.jpg') }}" alt="Prasun Bikram Khatri" class="team-photo">
+                                    <div class="team-social">
+                                        <a href="#" class="social-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <h4>Prasun Bikram Khatri</h4>
+                                <p class="role">Data Collection Specialist</p>
+                                <p class="contribution">Vector Database Data Collection</p>
+                                <p class="student-id">ID: 210225</p>
+                            </div>
+                        </div>
+        </div>
+      </div>
+    </div>
+        </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/about-section.js') }}"></script>
+{% endblock %}

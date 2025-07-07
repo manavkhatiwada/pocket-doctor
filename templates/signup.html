@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | MyPocketDoctor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_signup.css') }}">
+</head>
+<body>
+  <!-- Include common navbar -->
+  {% include 'navbar.html' %}
+
+  <main class="signup-section">
+    <div class="signup-card">
+      <h2>Create an account</h2>
+      <p>Enter your information to create a MyPocketDoctor account</p>
+      
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+      <form action="/signup" method="POST">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="email" name="email" placeholder="Email address" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <small>Password must be at least 8 characters long and include at least one uppercase letter, number, and special character.</small>
+        <div class="checkbox">
+          <input type="checkbox" id="terms" required />
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+        </div>
+        <button type="submit" class="btn-primary">Sign Up</button>
+      </form>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>🩺 MyPocketDoctor</h3>
+        <p>Your AI healthcare companion, providing reliable answers and connecting you with healthcare professionals.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li>AI Health Chat</li>
+            <li>Doctor Appointments</li>
+            <li>Health Tracking</li>
+            <li>Medical Records</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li>About Us</li>
+            <li>Careers</li>
+            <li>Blog</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li>Terms of Service</li>
+            <li>Privacy Policy</li>
+            <li>Cookie Policy</li>
+            <li>Medical Disclaimer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 MyPocketDoctor. All rights reserved.
+    </div>
+  </footer>
+  <script src="/script.js"></script>
+</body>
+</html>

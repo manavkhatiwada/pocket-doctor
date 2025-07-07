@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment | MyPocketDoctor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_appoinment.css') }}">
+  <style>
+    /* Updated styles to match chat interface */
+    body {
+      background-color: #fafcff;
+    }
+    
+    .appointment-form-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+    }
+    
+    .appointment-form-container input:-webkit-autofill,
+    .appointment-form-container input:-webkit-autofill:hover,
+    .appointment-form-container input:-webkit-autofill:focus,
+    .appointment-form-container input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+    
+    /* Hide autofill suggestions dropdown */
+    input:-webkit-autofill {
+      -webkit-background-clip: text;
+    }
+    
+    /* Additional styles to hide browser suggestions */
+    datalist {
+      display: none;
+    }
+    
+    .appointment-header {
+      padding: 0.8rem 1.5rem;
+      margin: -2rem -2rem 2rem -2rem;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: linear-gradient(to right, #2e86c1, #3498db);
+      color: white;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    
+    .appointment-header .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    
+    .appointment-header .info h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.2px;
+    }
+    
+    .appointment-header .info p {
+      margin: 0;
+      font-size: 0.75rem;
+      opacity: 0.9;
+    }
+    
+    .appointment-form {
+      padding: 0.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #555;
+      font-size: 0.9rem;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      border-color: #2e86c1;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(46, 134, 193, 0.2);
+    }
+    
+    .btn-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background-color: #2e86c1;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 1rem;
+    }
+    
+    .btn-submit:hover {
+      background-color: #2874a6;
+    }
+    
+    .alert {
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .form-tip {
+      background: rgba(46, 134, 193, 0.1);
+      border-left: 3px solid #2e86c1;
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0.5rem;
+      font-size: 0.85rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <!-- Include common navbar -->
+  {% include 'navbar.html' %}
+
+  <main class="container">
+    <div class="appointment-form-container">
+      <div class="appointment-header">
+        <div class="icon">📅</div>
+        <div class="info">
+          <h2>Schedule Appointment</h2>
+          <p>Book a consultation with our healthcare providers</p>
+        </div>
+      </div>
+      
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message | safe }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+      <div class="form-tip">
+        Please fill in all details carefully to ensure we can provide the best care for your specific needs.
+      </div>
+      
+      <form method="post" class="appointment-form" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name_{{ range(1000, 9999) | random }}" required placeholder="Enter your full name" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email_{{ range(1000, 9999) | random }}" value="{{ session.email if session.email else '' }}" required placeholder="Enter your email" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone_{{ range(1000, 9999) | random }}" required placeholder="Enter your phone number" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </div>
+        
+        <div class="form-group">
+          <label for="department">Choose Department:</label>
+          <select id="department" name="department" required autocomplete="new-password">
+            <option value="" disabled {% if not preselected_department %}selected{% endif %}>Select department...</option>
+            <option value="General" {% if preselected_department == 'General' %}selected{% endif %}>General</option>
+            <option value="Cardiology" {% if preselected_department == 'Cardiology' %}selected{% endif %}>Cardiology</option>
+            <option value="Neurology" {% if preselected_department == 'Neurology' %}selected{% endif %}>Neurology</option>
+            <option value="Pediatrics" {% if preselected_department == 'Pediatrics' %}selected{% endif %}>Pediatrics</option>
+            <option value="Dermatology" {% if preselected_department == 'Dermatology' %}selected{% endif %}>Dermatology</option>
+            <option value="Orthopedics" {% if preselected_department == 'Orthopedics' %}selected{% endif %}>Orthopedics</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="doctor">Choose Doctor:</label>
+          <select id="doctor" name="doctor" required autocomplete="new-password">
+            <option value="" disabled {% if not preselected_doctor %}selected{% endif %}>Select doctor...</option>
+            <!-- Doctor options will be populated dynamically based on department selection -->
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="problem">Describe Your Problem:</label>
+          <textarea id="problem" name="problem" rows="4" required placeholder="Describe your symptoms or reason for visit" autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" name="date" required autocomplete="new-password">
+          </div>
+          
+          <div class="form-group half">
+            <label for="time">Select Time:</label>
+            <select id="time" name="time" required autocomplete="new-password">
+              <option value="" disabled selected>Select time...</option>
+              <!-- Time slots will be dynamically populated -->
+            </select>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn-submit">Book Appointment</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>🩺 MyPocketDoctor</h3>
+        <p>Your AI healthcare companion, providing reliable answers and connecting you with healthcare professionals.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li>AI Health Chat</li>
+            <li>Doctor Appointments</li>
+            <li>Health Tracking</li>
+            <li>Medical Records</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li>About Us</li>
+            <li>Careers</li>
+            <li>Blog</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li>Terms of Service</li>
+            <li>Privacy Policy</li>
+            <li>Cookie Policy</li>
+            <li>Medical Disclaimer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 MyPocketDoctor. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Doctor data organized by department
+    const doctorsByDepartment = {
+      'General': ['Dr. Smith', 'Dr. Johnson', 'Specialist'],
+      'Cardiology': ['Dr. Williams', 'Dr. Garcia'],
+      'Neurology': ['Dr. Brown', 'Dr. Miller'],
+      'Pediatrics': ['Dr. Davis', 'Dr. Wilson'],
+      'Dermatology': ['Dr. Martinez', 'Dr. Anderson'],
+      'Orthopedics': ['Dr. Taylor', 'Dr. Thomas']
+    };
+
+    // Time slots available for each doctor
+    const timeSlotsByDoctor = {
+      'Dr. Smith': ['09:00', '10:00', '11:00', '14:00', '15:00'],
+      'Dr. Johnson': ['09:30', '10:30', '13:30', '16:30'],
+      'Dr. Williams': ['08:00', '10:00', '12:00', '14:00', '16:00'],
+      'Dr. Garcia': ['09:00', '11:00', '13:00', '15:00', '17:00'],
+      'Dr. Brown': ['08:30', '10:30', '13:30', '15:30'],
+      'Dr. Miller': ['09:00', '12:00', '15:00', '17:00'],
+      'Dr. Davis': ['08:00', '09:00', '10:00', '14:00', '16:00'],
+      'Dr. Wilson': ['09:30', '11:30', '14:30', '16:30'],
+      'Dr. Martinez': ['08:30', '11:30', '14:30', '17:30'],
+      'Dr. Anderson': ['09:00', '12:00', '15:00', '17:00'],
+      'Dr. Taylor': ['08:00', '10:00', '13:00', '16:00'],
+      'Dr. Thomas': ['09:30', '11:30', '13:30', '15:30']
+    };
+
+    // Function to update doctor dropdown based on selected department
+    function updateDoctorOptions() {
+      const departmentSelect = document.getElementById('department');
+      const doctorSelect = document.getElementById('doctor');
+      const selectedDepartment = departmentSelect.value;
+      
+      // Clear existing options
+      doctorSelect.innerHTML = '<option value="" disabled selected>Select doctor...</option>';
+      
+      // Add new options based on selected department
+      if (selectedDepartment && doctorsByDepartment[selectedDepartment]) {
+        doctorsByDepartment[selectedDepartment].forEach(doctor => {
+          const option = document.createElement('option');
+          option.value = doctor;
+          option.textContent = doctor;
+          doctorSelect.appendChild(option);
+        });
+      }
+      
+      // Clear time slots when department changes
+      updateTimeSlots();
+    }
+
+    // Function to update time slots based on selected doctor
+    function updateTimeSlots() {
+      const doctorSelect = document.getElementById('doctor');
+      const timeSelect = document.getElementById('time');
+      const selectedDoctor = doctorSelect.value;
+      
+      // Clear existing options
+      timeSelect.innerHTML = '<option value="" disabled selected>Select time...</option>';
+      
+      // Add new options based on selected doctor
+      if (selectedDoctor && timeSlotsByDoctor[selectedDoctor]) {
+        // Load default time slots first - will check for availability later
+        timeSlotsByDoctor[selectedDoctor].forEach(time => {
+          const option = document.createElement('option');
+          option.value = time;
+          option.textContent = time;
+          timeSelect.appendChild(option);
+        });
+        
+        // If date is selected, check for booked slots
+        const dateInput = document.getElementById('date');
+        if (dateInput.value) {
+          checkAvailability(selectedDoctor, dateInput.value);
+        }
+      }
+    }
+    
+    // Function to check availability and mark booked slots
+    async function checkAvailability(doctor, date) {
+      if (!doctor || !date) return;
+      
+      try {
+        const response = await fetch('/api/check_availability', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body: JSON.stringify({
+            doctor: doctor,
+            date: date
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to check availability');
+        }
+        
+        const data = await response.json();
+        const bookedTimes = data.booked_times || [];
+        
+        // Mark booked times in the dropdown
+        const timeSelect = document.getElementById('time');
+        const options = timeSelect.options;
+        
+        for (let i = 0; i < options.length; i++) {
+          const timeValue = options[i].value;
+          if (bookedTimes.includes(timeValue)) {
+            options[i].disabled = true;
+            options[i].text = options[i].text + ' (Booked)';
+          }
+        }
+      } catch (error) {
+        console.error('Error checking availability:', error);
+      }
+    }
+
+    // Set minimum date to today
+    document.addEventListener('DOMContentLoaded', function() {
+      const dateInput = document.getElementById('date');
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      dateInput.min = formattedDate;
+      
+      // Add event listeners
+      document.getElementById('department').addEventListener('change', updateDoctorOptions);
+      document.getElementById('doctor').addEventListener('change', updateTimeSlots);
+      document.getElementById('date').addEventListener('change', function() {
+        const doctorSelect = document.getElementById('doctor');
+        if (doctorSelect.value) {
+          updateTimeSlots();
+        }
+      });
+
+      // After DOMContentLoaded, if preselected values exist, set them and trigger change
+      const preselectedDepartment = "{{ preselected_department }}";
+      const preselectedDoctor = "{{ preselected_doctor }}";
+      if (preselectedDepartment) {
+        document.getElementById('department').value = preselectedDepartment;
+        updateDoctorOptions();
+        if (preselectedDoctor) {
+          document.getElementById('doctor').value = preselectedDoctor;
+        }
+      }
+    });
+  </script>
+</body>
+</html> 

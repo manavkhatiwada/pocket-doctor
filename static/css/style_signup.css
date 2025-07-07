@@ -1,0 +1,112 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
+  background: #f0f8fd;
+  line-height: 1.6;
+}
+
+/* Remove conflicting header styles */
+
+/* Signup Form Styles */
+.signup-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px 100px;
+  min-height: 80vh;
+}
+
+.signup-card {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.signup-card h2 {
+  margin-bottom: 10px;
+}
+
+.signup-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.signup-card form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.signup-card input {
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.signup-card small {
+  color: #777;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.checkbox a {
+  color: #0099e5;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #0099e5;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background: #0080c9;
+}
+
+.or {
+  margin: 20px 0 10px;
+  font-size: 14px;
+  color: #777;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-buttons button {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  background: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Remove conflicting footer styles */

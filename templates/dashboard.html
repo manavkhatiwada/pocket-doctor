@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | MyPocketDoctor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_appoinment.css') }}">
+  <style>
+    body {
+      background-color: #fafcff;
+    }
+    
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 20px;
+    }
+
+    .dashboard-header-container {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-header {
+      padding: 0.8rem 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: linear-gradient(to right, #2e86c1, #3498db);
+      color: white;
+    }
+    
+    .dashboard-header .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    
+    .dashboard-header .info h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.2px;
+    }
+    
+    .dashboard-header .info p {
+      margin: 0;
+      font-size: 0.75rem;
+      opacity: 0.9;
+    }
+
+    .dashboard-welcome {
+      padding: 1.5rem;
+      background: white;
+    }
+
+    .dashboard-welcome h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .dashboard-welcome p {
+      margin-bottom: 0;
+      color: #666;
+    }
+
+    .dashboard-tabs {
+      display: flex;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .dashboard-tab {
+      flex: 1;
+      text-align: center;
+      padding: 15px;
+      cursor: pointer;
+      background: #f5f5f5;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .dashboard-tab.active {
+      background: #2196f3;
+      color: white;
+    }
+
+    .dashboard-content {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Profile Section */
+    .profile-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: #757575;
+    }
+
+    .profile-info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .profile-info-item {
+      margin-bottom: 15px;
+    }
+
+    .profile-info-item label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .profile-info-item p {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .profile-btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #2196f3;
+      color: white;
+    }
+
+    .password-btn {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    /* Appointments Section */
+    .appointment-card {
+      background-color: #f8fbff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-left: 4px solid #2196f3;
+    }
+    
+    .appointment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    
+    .appointment-title {
+      font-weight: 600;
+      font-size: 18px;
+      color: #333;
+    }
+    
+    .appointment-date {
+      color: #2196f3;
+      font-weight: 500;
+    }
+    
+    .appointment-details {
+      margin-top: 10px;
+      color: #666;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    .status-pending {
+      background-color: #FFF3CD;
+      color: #856404;
+    }
+
+    .status-confirmed {
+      background-color: #D4EDDA;
+      color: #155724;
+    }
+
+    .status-completed {
+      background-color: #D1ECF1;
+      color: #0C5460;
+    }
+
+    .status-cancelled {
+      background-color: #F8D7DA;
+      color: #721C24;
+    }
+
+    .appointment-actions {
+      margin-top: 15px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .cancel-btn {
+      padding: 5px 10px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .complete-btn {
+      padding: 5px 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-right: 8px;
+    }
+
+    .verify-btn {
+      padding: 5px 10px;
+      background-color: #17a2b8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-right: 8px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .verify-btn:hover {
+      background-color: #138496;
+    }
+
+    .view-all-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #f5f5f5;
+      color: #333;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .view-all-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* Chat History Section */
+    .chat-history-list {
+      max-height: 500px;
+      overflow-y: auto;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .chat-history-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .chat-history-item:last-child {
+      border-bottom: none;
+    }
+
+    .chat-history-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    
+    .user-avatar {
+      background: #e3f2fd;
+      color: #2196f3;
+    }
+
+    .chat-content {
+      flex: 1;
+    }
+
+    .chat-date {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 5px;
+    }
+
+    .chat-message {
+      background-color: #f5f5f5;
+      padding: 10px 15px;
+      border-radius: 8px;
+      color: #333;
+      line-height: 1.5;
+    }
+    
+    .user-message {
+      background-color: #e3f2fd;
+      color: #333;
+    }
+
+    .continue-chat-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #2e86c1;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .continue-chat-btn:hover {
+      background-color: #2874a6;
+    }
+    
+    /* Edit Profile Form */
+    .edit-profile-container {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .edit-profile-container h4 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #333;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    
+    .edit-profile-form .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .edit-profile-form label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .edit-profile-form input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .save-profile-btn {
+      padding: 10px 15px;
+      background: #2e86c1;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    .cancel-edit-btn {
+      padding: 10px 15px;
+      background: #f5f5f5;
+      color: #333;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    /* Section Titles */
+    .section-title {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #333;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .section-title:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 50px;
+      background-color: #2e86c1;
+    }
+    
+    /* Add Notes Form */
+    .add-notes-btn {
+      padding: 5px 10px;
+      background-color: #f1f5f9;
+      color: #333;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    
+    .notes-form {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
+    
+    .notes-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      resize: vertical;
+      min-height: 80px;
+      margin-bottom: 10px;
+    }
+    
+    .save-notes-btn {
+      padding: 8px 15px;
+      background-color: #2e86c1;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    
+    /* No Appointments */
+    .no-appointments {
+      text-align: center;
+      padding: 30px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      color: #666;
+    }
+    
+    .book-now-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #2e86c1;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    
+    .book-now-btn:hover {
+      background-color: #2874a6;
+    }
+
+    .flash-messages {
+      width: 80%;
+      max-width: 800px;
+      margin: 10px auto;
+      padding: 10px;
+    }
+    .alert {
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .warning {
+      background-color: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+    }
+    .info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .dashboard-tabs {
+        flex-direction: column;
+      }
+      
+      .profile-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .profile-info {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Include common navbar -->
+  {% include 'navbar.html' %}
+
+  <div class="dashboard-container">
+    <div class="dashboard-header-container">
+      <div class="dashboard-header">
+        <div class="icon">📊</div>
+        <div class="info">
+          <h2>My Dashboard</h2>
+          <p>Manage your appointments and account</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-welcome">
+        <h2>Welcome, {{ session.username }}!</h2>
+        <p>Here you can manage your appointments and account settings.</p>
+      </div>
+    </div>
+
+    <!-- Dashboard Tabs -->
+    <div class="dashboard-tabs">
+      <div class="dashboard-tab active" data-tab="appointments">Appointments</div>
+      <div class="dashboard-tab" data-tab="profile">My Profile</div>
+      <div class="dashboard-tab" data-tab="chat-history">Chat History</div>
+    </div>
+
+    <!-- Appointments Section -->
+    <div id="appointments" class="dashboard-content tab-content active">
+      <h3 class="section-title">Your Appointments</h3>
+      
+      {% if appointments %}
+        {% for appointment in appointments %}
+          <div class="appointment-card 
+            {% if appointment.status == 'pending' %}pending{% endif %}
+            {% if appointment.status == 'confirmed' %}confirmed{% endif %}
+            {% if appointment.status == 'completed' %}completed{% endif %}
+            {% if appointment.status == 'cancelled' %}cancelled{% endif %}
+          ">
+            <div class="appointment-header">
+              <div>
+                <span class="appointment-title">{{ appointment.doctor }}</span>
+                <span class="status-badge status-{{ appointment.status }}">{{ appointment.status }}</span>
+                {% if not appointment.verified %}
+                <span class="status-badge status-warning">Awaiting Verification</span>
+                {% endif %}
+              </div>
+              <span class="appointment-date">{{ appointment.date }} | {{ appointment.time }}</span>
+            </div>
+            
+            <div class="appointment-details">
+              <p><strong>Department:</strong> {{ appointment.department }}</p>
+              <p><strong>Reason for visit:</strong> {{ appointment.problem }}</p>
+              
+              {% if appointment.notes %}
+                <p><strong>Notes:</strong> {{ appointment.notes }}</p>
+              {% endif %}
+            </div>
+            
+            <div class="appointment-actions">
+              {% if not appointment.verified %}
+                <a href="{{ url_for('verify_email', token=appointment.verification_token) }}" class="verify-btn">Verify Appointment</a>
+              {% endif %}
+              
+              {% if appointment.status != 'cancelled' and appointment.status != 'completed' %}
+                {% if appointment.status == 'confirmed' %}
+                  <form method="post" action="{{ url_for('complete_appointment', id=appointment.id) }}" style="display: inline;">
+                    <input type="hidden" name="email" value="{{ email }}">
+                    <button type="submit" class="complete-btn">Mark Completed</button>
+                  </form>
+                {% endif %}
+                
+                <form method="post" action="{{ url_for('cancel_appointment', id=appointment.id) }}" style="display: inline;">
+                  <input type="hidden" name="email" value="{{ email }}">
+                  <button type="submit" class="cancel-btn">Cancel Appointment</button>
+                </form>
+              {% endif %}
+              
+              {% if appointment.status != 'completed' and appointment.status != 'cancelled' %}
+                <div class="add-notes">
+                  <button type="button" class="add-notes-btn" data-id="{{ appointment.id }}">Add Notes</button>
+                  <div id="notes-form-{{ appointment.id }}" class="notes-form" style="display: none;">
+                    <form method="post" action="{{ url_for('add_notes', id=appointment.id) }}">
+                      <input type="hidden" name="email" value="{{ email }}">
+                      <textarea name="notes" rows="3" placeholder="Add notes about this appointment..."></textarea>
+                      <button type="submit" class="save-notes-btn">Save Notes</button>
+                    </form>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="no-appointments">
+          <p>You don't have any appointments yet.</p>
+          <a href="{{ url_for('appointment') }}" class="book-now-btn">Book an Appointment</a>
+        </div>
+      {% endif %}
+    </div>
+    
+    <!-- Profile Section -->
+    <div id="profile" class="dashboard-content tab-content">
+      <h3 class="section-title">My Profile</h3>
+      
+      <div class="profile-section">
+        <div class="profile-avatar">
+          👤
+        </div>
+        
+        <div class="profile-info">
+          <div class="profile-info-item">
+            <label>Email</label>
+            <p>{{ email }}</p>
+          </div>
+          
+          <div class="profile-info-item">
+            <label>Name</label>
+            <p>{{ profile_name }}</p>
+          </div>
+          
+          <div class="profile-info-item">
+            <label>Phone</label>
+            <p>{{ profile_phone }}</p>
+          </div>
+          
+          <div class="profile-info-item">
+            <label>Member since</label>
+            <p>{% if appointments and appointments|length > 0 %}{{ appointments[0].created_at.strftime('%Y-%m-%d') }}{% else %}Today{% endif %}</p>
+          </div>
+          
+          <div class="profile-actions">
+            <button class="profile-btn edit-btn">Edit Profile</button>
+            <button class="profile-btn password-btn">Change Password</button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="edit-profile-form" class="edit-profile-container" style="display: none;">
+        <h4>Edit Profile</h4>
+        <form action="{{ url_for('dashboard') }}" method="post" class="edit-profile-form">
+          <input type="hidden" name="form_type" value="profile_update">
+          <input type="hidden" name="email" value="{{ email }}">
+          
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" value="{{ profile_name }}">
+          </div>
+          
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" name="phone" value="{{ profile_phone }}">
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="save-profile-btn">Save Changes</button>
+            <button type="button" class="cancel-edit-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="change-password-form" class="edit-profile-container" style="display: none;">
+        <h4>Change Password</h4>
+        <form action="{{ url_for('change_password') }}" method="post" class="edit-profile-form">
+          <div class="form-group">
+            <label>Current Password</label>
+            <input type="password" name="current_password" required>
+          </div>
+          
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" name="new_password" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Confirm New Password</label>
+            <input type="password" name="confirm_password" required>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="save-profile-btn">Change Password</button>
+            <button type="button" class="cancel-password-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Chat History Section -->
+    <div id="chat-history" class="dashboard-content tab-content">
+      <h3 class="section-title">Chat History</h3>
+      
+      <div class="chat-history-list">
+        {% if chat_history %}
+          {% for chat in chat_history %}
+            <!-- Bot response -->
+            <div class="chat-history-item">
+              <div class="chat-history-avatar">🩺</div>
+              <div class="chat-content">
+                <div class="chat-date">{{ chat.timestamp.strftime('%Y-%m-%d %H:%M') }}</div>
+                <div class="chat-message">{{ chat.bot_response | nl2br | safe }}</div>
+              </div>
+            </div>
+            
+            <!-- User message -->
+            <div class="chat-history-item">
+              <div class="chat-history-avatar user-avatar">👤</div>
+              <div class="chat-content">
+                <div class="chat-date">{{ chat.timestamp.strftime('%Y-%m-%d %H:%M') }}</div>
+                <div class="chat-message user-message">{{ chat.user_message }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="chat-history-item" style="justify-content: center; padding: 30px;">
+            <p>No chat history available yet. Start a conversation with our AI assistant!</p>
+          </div>
+        {% endif %}
+      </div>
+      
+      <a href="{{ url_for('chat') }}" class="continue-chat-btn">Continue Chatting</a>
+    </div>
+  </div>
+
+  <script>
+    // Define all toggle functions in a single place
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set up notes form toggles
+      const noteButtons = document.querySelectorAll('.add-notes-btn');
+      noteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const appointmentId = this.getAttribute('data-id');
+          toggleNotesForm(appointmentId);
+        });
+      });
+      
+      // Set up tab switching
+      const tabButtons = document.querySelectorAll('.dashboard-tab');
+      tabButtons.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const tabId = this.getAttribute('data-tab');
+          switchTab(tabId);
+        });
+      });
+      
+      // Profile edit buttons
+      const editProfileBtn = document.querySelector('.edit-btn');
+      if (editProfileBtn) {
+        editProfileBtn.addEventListener('click', showEditForm);
+      }
+      
+      const cancelEditBtn = document.querySelector('.cancel-edit-btn');
+      if (cancelEditBtn) {
+        cancelEditBtn.addEventListener('click', hideEditForm);
+      }
+    });
+    
+    function toggleNotesForm(appointmentId) {
+      const notesForm = document.getElementById(`notes-form-${appointmentId}`);
+      if (notesForm.style.display === 'none') {
+        notesForm.style.display = 'block';
+      } else {
+        notesForm.style.display = 'none';
+      }
+    }
+    
+    function switchTab(tabId) {
+      // Hide all tab contents
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(tab => tab.classList.remove('active'));
+      
+      // Remove active class from all tabs
+      const tabs = document.querySelectorAll('.dashboard-tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      
+      // Show the selected tab content
+      document.getElementById(tabId).classList.add('active');
+      
+      // Add active class to the clicked tab
+      const activeTab = document.querySelector(`[data-tab="${tabId}"]`);
+      if (activeTab) {
+        activeTab.classList.add('active');
+      }
+    }
+    
+    function showEditForm() {
+      document.getElementById('edit-profile-form').style.display = 'block';
+    }
+    
+    function hideEditForm() {
+      document.getElementById('edit-profile-form').style.display = 'none';
+    }
+  </script>
+
+  <script>
+    // Additional script for password change functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Password change buttons
+      const changePasswordBtn = document.querySelector('.password-btn');
+      if (changePasswordBtn) {
+        changePasswordBtn.addEventListener('click', showPasswordForm);
+      }
+      
+      const cancelPasswordBtn = document.querySelector('.cancel-password-btn');
+      if (cancelPasswordBtn) {
+        cancelPasswordBtn.addEventListener('click', hidePasswordForm);
+      }
+    });
+    
+    function showPasswordForm() {
+      // Hide edit profile form if it's open
+      document.getElementById('edit-profile-form').style.display = 'none';
+      // Show password form
+      document.getElementById('change-password-form').style.display = 'block';
+    }
+    
+    function hidePasswordForm() {
+      document.getElementById('change-password-form').style.display = 'none';
+    }
+  </script>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>🩺 MyPocketDoctor</h3>
+        <p>Your AI healthcare companion, providing reliable answers and connecting you with healthcare professionals.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li>AI Health Chat</li>
+            <li>Doctor Appointments</li>
+            <li>Health Tracking</li>
+            <li>Medical Records</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li>About Us</li>
+            <li>Careers</li>
+            <li>Blog</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li>Terms of Service</li>
+            <li>Privacy Policy</li>
+            <li>Cookie Policy</li>
+            <li>Medical Disclaimer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 MyPocketDoctor. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html> 
